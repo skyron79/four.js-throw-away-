@@ -2,6 +2,7 @@ import * as THREE from 'three';
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x202020);
+scene.fog = new THREE.Fog(scene.background, 8, 35);
 
 const camera = new THREE.PerspectiveCamera(
   75,
@@ -20,6 +21,14 @@ const geometry = new THREE.BoxGeometry();
 const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
+
+const ground = new THREE.Mesh(
+  new THREE.PlaneGeometry(200, 200),
+  new THREE.MeshBasicMaterial({ color: 0x4f8a3c })
+);
+ground.rotation.x = -Math.PI / 2;
+ground.position.y = -1;
+scene.add(ground);
 
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
